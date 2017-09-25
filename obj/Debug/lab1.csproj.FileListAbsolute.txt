@@ -1,0 +1,12 @@
+D:\code\C#\labs\lab1\bin\Debug\lab1.exe
+D:\code\C#\labs\lab1\bin\Debug\lab1.pdb
+D:\code\C#\labs\lab1\bin\Debug\mscorlib.dll
+D:\code\C#\labs\lab1\bin\Debug\ru\mscorlib.resources.dll
+D:\code\C#\labs\lab1\bin\Debug\normidna.nlp
+D:\code\C#\labs\lab1\bin\Debug\normnfc.nlp
+D:\code\C#\labs\lab1\bin\Debug\normnfd.nlp
+D:\code\C#\labs\lab1\bin\Debug\normnfkc.nlp
+D:\code\C#\labs\lab1\bin\Debug\normnfkd.nlp
+D:\code\C#\labs\lab1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
+D:\code\C#\labs\lab1\obj\Debug\lab1.exe
+D:\code\C#\labs\lab1\obj\Debug\lab1.pdb
