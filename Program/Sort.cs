@@ -1,9 +1,12 @@
-﻿namespace lab1.Properties
+﻿using System;
+
+namespace lab1.Properties
 {
     public class Sort
     {
         public static void QuickSort(long[] array)
         {
+            Array.Sort(array);
         }
 
         public static void BubbleSort(long[] array)
@@ -41,11 +44,6 @@
                 }
                 step = step / 2;
             }
-        }
-
-        public static void BubbleSort()
-        {
-           
         }
     }
 }

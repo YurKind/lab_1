@@ -23,6 +23,8 @@ namespace lab1.Properties
                                               " микро секунд");
                             Console.WriteLine("Shell sort: " + Comparator.Test(Sort.ShellSort, Comparator.Sequence) +
                                               " микро секунд");
+                            Console.WriteLine("Quick sort: " + Comparator.Test(Sort.QuickSort, Comparator.Sequence) + 
+                                              " микросекунд");
                         }
                         catch (NullReferenceException)
                         {
@@ -59,8 +61,15 @@ namespace lab1.Properties
                         break;
 
                     case Commands.iterations:
-                        Comparator.Iterations = Convert.ToInt32(command[1]);
-                        Console.WriteLine("Количество итераций: " + command[1]);
+                        try
+                        {
+                            Comparator.Iterations = Convert.ToInt32(command[1]);
+                            Console.WriteLine("Количество итераций: " + command[1]);
+                        }
+                        catch (OverflowException)
+                        {
+                            Console.WriteLine("Вы ввели недопустимо малое или недопустимо большое число");
+                        }
                         break;
 
                     case Commands.random:
