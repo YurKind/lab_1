@@ -8,7 +8,7 @@ namespace lab1.Properties
     {
         public static void Main(string[] args)
         {
-            Program.Start();
+            SortsComparator.Start();
         }
     }
 }

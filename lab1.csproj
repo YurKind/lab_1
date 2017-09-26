@@ -42,14 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program\Commands.cs" />
+    <Compile Include="Program\CommandService.cs" />
     <Compile Include="Program\Comparator.cs" />
     <Compile Include="Program\FileReader.cs" />
     <Compile Include="Program\EntryPoint.cs" />
-    <Compile Include="Program\Program.cs" />
+    <Compile Include="Program\SortsComparator.cs" />
     <Compile Include="Program\Sort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\.gitignore" />
     <Content Include="Resources\help.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

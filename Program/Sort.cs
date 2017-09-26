@@ -4,7 +4,7 @@ namespace lab1.Properties
 {
     public class Sort
     {
-        public static void QuickSort(long[] array)
+        public static void DefaultSort(long[] array)
         {
             Array.Sort(array);
         }
