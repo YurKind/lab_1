@@ -6,7 +6,7 @@ namespace lab1.Properties
     public class Comparator
     {
         private int iterations = 100;
-        private int[] sequence;
+        private long[] sequence;
 
         public int Iterations
         {

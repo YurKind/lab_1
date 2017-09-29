@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace lab1.Properties
 {
@@ -8,10 +10,11 @@ namespace lab1.Properties
     {
         public static void DoTest(Comparator comparator, Dictionary<string, SortDelegate> allSorts)
         {
-            Console.WriteLine("Итераций: {0}, Размер массива: {1}",
-                comparator.Iterations, comparator.Sequence.Length);
             try
             {
+                Console.WriteLine("Итераций: {0}, Размер массива: {1}",
+                    comparator.Iterations, comparator.Sequence.Length);
+
                 foreach (var sort in allSorts)
                 {
                     long currentSortTime = comparator.Compare(sort.Value, comparator.Sequence);
@@ -24,15 +27,15 @@ namespace lab1.Properties
             }
         }
 
-        public static void SetSequence(Comparator comparator, string[] command)
+        public static void SetSequence(Comparator comparator, long[] values)
         {
-            comparator.Sequence = new long[command.Length - 1];
+            comparator.Sequence = new long[values.Length];
 
             try
             {
-                for (int i = 0; i < command.Length - 1; i++)
+                for (int i = 0; i < values.Length; i++)
                 {
-                    comparator.Sequence[i] = Convert.ToInt32(command[i + 1]);
+                    comparator.Sequence[i] = values[i];
                 }
                 Console.WriteLine("Последовательность установлена");
             }
@@ -47,20 +50,21 @@ namespace lab1.Properties
             }
         }
 
-        public static void SetRandomSequence(Comparator comparator, string[] command)
+        public static void SetRandomSequence(Comparator comparator, long value)
         {
             try
             {
                 Random random = new Random();
 
-                long arrayLength = Convert.ToInt32(command[1]);
-                comparator.Sequence = new long[arrayLength];
-                for (int i = 0; i < arrayLength; i++)
+                long arrayForSortingLength = value;
+
+                comparator.Sequence = new long[arrayForSortingLength];
+                for (int i = 0; i < arrayForSortingLength; i++)
                 {
                     comparator.Sequence[i] = random.Next(-100, 100);
                 }
 
-                Console.WriteLine("Задана случайная последовательность длинной " + arrayLength);
+                Console.WriteLine("Задана случайная последовательность длинной " + arrayForSortingLength);
             }
             catch (FormatException)
             {
@@ -92,12 +96,12 @@ namespace lab1.Properties
             }
         }
 
-        public static void SetNumberOfIterations(Comparator comparator, string[] command)
+        public static void SetNumberOfIterations(Comparator comparator, long value)
         {
             try
             {
-                comparator.Iterations = Convert.ToInt32(command[1]);
-                Console.WriteLine("Количество итераций: " + command[1]);
+                comparator.Iterations = (int) value;
+                Console.WriteLine("Количество итераций: " + value);
             }
             catch (OverflowException)
             {
@@ -107,6 +111,21 @@ namespace lab1.Properties
             {
                 Console.WriteLine("Введите кол-во итераций");
             }
+        }
+
+        public static string GetStringWithoutRedundantSpaces(string sourceString)
+        {
+            return Regex.Replace(sourceString, @"\s+", " ").Trim();
+        }
+
+        public static KeyValuePair<string, long[]> ReturnCommandAndValues(string commandLine)
+        {
+            string commandLineWithoutRedundantSpaces = GetStringWithoutRedundantSpaces(commandLine);
+            string[] commandLineElements = commandLineWithoutRedundantSpaces.Split(' ');
+
+            long[] values = commandLineElements.Skip(1).Select(long.Parse).ToArray();
+
+            return new KeyValuePair<string, long[]>(commandLineElements[0], values);
         }
     }
 }
