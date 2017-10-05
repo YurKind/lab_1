@@ -15,6 +15,10 @@ namespace lab1.Properties
                 {
                     Console.WriteLine("Превышено число параметров");
                 }
+                else if (args.Length == 1)
+                {
+                    SortsComparator.Start(@"..\..\Resources\" + args[0]);
+                }
                 else
                 {
                     SortsComparator.Start();

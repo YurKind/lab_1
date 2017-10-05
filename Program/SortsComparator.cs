@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using lab1.Properties;
@@ -16,15 +17,35 @@ namespace lab1.Program
 
         private static KeyValuePair<string, long[]> commandAndTheirValues;
 
-        public static void Start(string fileName)
+        public static void Start(string filePath)
         {
-            string[] fileLines = FileReader.ReturnFileContent(fileName);
+            string[] fileLines;
+            try
+            {
+                fileLines = File.ReadAllLines(filePath);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.Write("Файл {0} не найден", ex.FileName);
+                return;
+            }
+
             Dictionary<string, long[]> commandsAndTheirValues = fileLines
-                .TakeWhile(line => !line.Equals(Commands.Test))
+                .Take(fileLines.Length)
                 .Select(CommandService.ReturnCommandAndValues)
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
-            
-            
+
+            if (commandsAndTheirValues.Count == 0)
+            {
+                Console.WriteLine("Проверьте корректность заданных в файле");
+            }
+            else
+            {
+                foreach (var pair in commandsAndTheirValues)
+                {
+                    CommandService.CommandsHandler(pair, comparator, HelpInfoFilePath);
+                }
+            }
         }
 
         public static void Start()
@@ -41,40 +62,13 @@ namespace lab1.Program
                     continue;
                 }
 
-                switch (commandAndTheirValues.Key)
+                if (commandAndTheirValues.Key == Commands.Exit)
                 {
-                    case Commands.Test:
-                        Dictionary<string, SortDelegate> allSorts = new Dictionary<string, SortDelegate>();
-                        allSorts.Add("Bubble sort", Sort.BubbleSort);
-                        allSorts.Add("Shell sort", Sort.ShellSort);
-                        allSorts.Add("Default sort", Sort.DefaultSort);
-
-                        CommandService.DoTest(comparator, allSorts);
-                        break;
-
-                    case Commands.Help:
-                        CommandService.PrintHelpInfo(HelpInfoFilePath);
-                        break;
-
-                    case Commands.Sequence:
-                        CommandService.SetSequence(comparator, commandAndTheirValues.Value);
-                        break;
-
-                    case Commands.Random:
-                        CommandService.SetRandomSequence(comparator, commandAndTheirValues.Value[0]);
-                        break;
-
-                    case Commands.Iterations:
-                        CommandService.SetNumberOfIterations(comparator, commandAndTheirValues.Value[0]);
-                        break;
-
-                    case Commands.Exit:
-                        isProgramRunning = false;
-                        break;
-
-                    default:
-                        Console.WriteLine("Вы ввели несуществующую команду");
-                        break;
+                    isProgramRunning = false;
+                }
+                else
+                {
+                    CommandService.CommandsHandler(commandAndTheirValues, comparator, HelpInfoFilePath);
                 }
             }
         }

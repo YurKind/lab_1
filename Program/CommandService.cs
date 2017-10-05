@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using lab1.Program;
 
 namespace lab1.Properties
 {
@@ -84,7 +85,7 @@ namespace lab1.Properties
         {
             try
             {
-                string[] helpInfo = FileReader.ReturnFileContent(filePath);
+                string[] helpInfo = File.ReadAllLines(filePath);
                 foreach (string info in helpInfo)
                 {
                     Console.WriteLine(info);
@@ -126,6 +127,42 @@ namespace lab1.Properties
             long[] values = commandLineElements.Skip(1).Select(long.Parse).ToArray();
 
             return new KeyValuePair<string, long[]>(commandLineElements[0], values);
+        }
+
+        public static void CommandsHandler(KeyValuePair<string, long[]> commandAndTheirValues,
+            Comparator comparator, string HelpInfoFilePath)
+        {
+            switch (commandAndTheirValues.Key)
+            {
+                case Commands.Test:
+                    Dictionary<string, SortDelegate> allSorts = new Dictionary<string, SortDelegate>();
+                    allSorts.Add("Bubble sort", Sort.BubbleSort);
+                    allSorts.Add("Shell sort", Sort.ShellSort);
+                    allSorts.Add("Default sort", Sort.DefaultSort);
+
+                    CommandService.DoTest(comparator, allSorts);
+                    break;
+
+                case Commands.Help:
+                    CommandService.PrintHelpInfo(HelpInfoFilePath);
+                    break;
+
+                case Commands.Sequence:
+                    CommandService.SetSequence(comparator, commandAndTheirValues.Value);
+                    break;
+
+                case Commands.Random:
+                    CommandService.SetRandomSequence(comparator, commandAndTheirValues.Value[0]);
+                    break;
+
+                case Commands.Iterations:
+                    CommandService.SetNumberOfIterations(comparator, commandAndTheirValues.Value[0]);
+                    break;
+
+                default:
+                    Console.WriteLine("Вы ввели несуществующую команду");
+                    break;
+            }
         }
     }
 }

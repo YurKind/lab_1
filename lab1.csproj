@@ -45,7 +45,6 @@
     <Compile Include="Program\Commands.cs" />
     <Compile Include="Program\CommandService.cs" />
     <Compile Include="Program\Comparator.cs" />
-    <Compile Include="Program\FileReader.cs" />
     <Compile Include="Program\EntryPoint.cs" />
     <Compile Include="Program\SortsComparator.cs" />
     <Compile Include="Program\Sort.cs" />
@@ -53,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\help.txt" />
-    <Content Include="Resources\works.txt" />
+    <Content Include="Resources\work.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
