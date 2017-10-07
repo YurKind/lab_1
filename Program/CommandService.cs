@@ -9,6 +9,8 @@ namespace lab1.Properties
 {
     public static class CommandService
     {
+        private const long RandomDefaultSequenceLength = 7500;
+        
         public static void DoTest(Comparator comparator, Dictionary<string, SortDelegate> allSorts)
         {
             try
@@ -121,6 +123,7 @@ namespace lab1.Properties
 
         public static KeyValuePair<string, long[]> ReturnCommandAndValues(string commandLine)
         {
+            commandLine = commandLine.ToLower();
             string commandLineWithoutRedundantSpaces = GetStringWithoutRedundantSpaces(commandLine);
             string[] commandLineElements = commandLineWithoutRedundantSpaces.Split(' ');
 
@@ -152,7 +155,16 @@ namespace lab1.Properties
                     break;
 
                 case Commands.Random:
-                    CommandService.SetRandomSequence(comparator, commandAndTheirValues.Value[0]);
+                    long sequnceLength;
+                    try
+                    {
+                        sequnceLength = commandAndTheirValues.Value[0];
+                    }
+                    catch
+                    {
+                        sequnceLength = RandomDefaultSequenceLength;
+                    }
+                    CommandService.SetRandomSequence(comparator, sequnceLength);
                     break;
 
                 case Commands.Iterations:
