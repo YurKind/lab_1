@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using lab1.Properties;
 
 namespace lab1.Program
 {
     public static class SortsComparator
     {
-        private const string HelpInfoFilePath = @"..\..\Resources\help.txt";
-
-        private static Comparator comparator = new Comparator();
+        private static TimeTracker _timeTracker = new TimeTracker();
 
         private static bool isProgramRunning = true;
 
@@ -43,7 +40,7 @@ namespace lab1.Program
             {
                 foreach (var pair in commandsAndTheirValues)
                 {
-                    CommandService.CommandsHandler(pair, comparator, HelpInfoFilePath);
+                    CommandService.CommandsHandler(pair, _timeTracker);
                 }
             }
         }
@@ -54,6 +51,7 @@ namespace lab1.Program
             {
                 try
                 {
+                    Console.Write(" > ");
                     commandAndTheirValues = CommandService.ReturnCommandAndValues(Console.ReadLine());
                 }
                 catch (FormatException)
@@ -64,11 +62,12 @@ namespace lab1.Program
 
                 if (commandAndTheirValues.Key == Commands.Exit)
                 {
+                    Console.WriteLine("Чао");
                     isProgramRunning = false;
                 }
                 else
                 {
-                    CommandService.CommandsHandler(commandAndTheirValues, comparator, HelpInfoFilePath);
+                    CommandService.CommandsHandler(commandAndTheirValues, _timeTracker);
                 }
             }
         }

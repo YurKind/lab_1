@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
-using lab1.Program;
 
-namespace lab1.Properties
+namespace lab1.Program
 {
     public class EntryPoint
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Привет! Я жду команд!");
             try
             {
                 if (args.Length > 1)
@@ -17,14 +16,14 @@ namespace lab1.Properties
                 }
                 else if (args.Length == 1)
                 {
-                    SortsComparator.Start(@"..\..\Resources\" + args[0]);
+                    SortsComparator.Start(args[0]);
                 }
                 else
                 {
                     SortsComparator.Start();
                 }
             }
-            catch (FormatException)
+            catch
             {
                 Console.WriteLine("Что-то пошло не так...");
             }

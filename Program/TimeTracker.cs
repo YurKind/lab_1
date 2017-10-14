@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.Remoting.Messaging;
 
-namespace lab1.Properties
+namespace lab1.Program
 {
-    public class Comparator
+    public class TimeTracker
     {
         private int iterations = 100;
         private long[] sequence;
@@ -16,9 +17,11 @@ namespace lab1.Properties
 
         public long[] Sequence { get; set; }
 
-        public long Compare(SortDelegate sortDelegate, long[] array)
+        public float GetSortingTime(SortDelegate sortDelegate, long[] array)
         {
+            float result;
             Stopwatch stopwatch = new Stopwatch();
+            
             for (int i = 0; i < iterations; i++)
             {
                 long[] tempArray = array;
@@ -26,8 +29,8 @@ namespace lab1.Properties
                 sortDelegate.Invoke(tempArray);
                 stopwatch.Stop();
             }
-
-            return stopwatch.ElapsedMilliseconds / Iterations;
+            result = (float) stopwatch.ElapsedMilliseconds / Iterations;
+            return result <= 0.0 ? (float) 0.0001 : result;
         }
     }
 

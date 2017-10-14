@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace lab1.Properties
+namespace lab1.Program
 {
     public class Sort
     {

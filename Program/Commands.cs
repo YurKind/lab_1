@@ -1,4 +1,4 @@
-﻿namespace lab1.Properties
+﻿namespace lab1.Program
 {
     public static class Commands
     {

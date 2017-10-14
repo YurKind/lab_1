@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using lab1.Program;
 
-namespace lab1.Properties
+namespace lab1.Program
 {
     public static class CommandService
     {
-        private const long RandomDefaultSequenceLength = 7500;
-        
-        public static void DoTest(Comparator comparator, Dictionary<string, SortDelegate> allSorts)
+        private const long RandomDefaultSequenceLength = 2500;
+
+        private static readonly string HelpInfoFilePath = @"../../Resources/help.txt";
+
+        public static void DoTest(TimeTracker timeTracker, Dictionary<string, SortDelegate> allSorts)
         {
             try
             {
                 Console.WriteLine("Итераций: {0}, Размер массива: {1}",
-                    comparator.Iterations, comparator.Sequence.Length);
+                    timeTracker.Iterations, timeTracker.Sequence.Length);
 
                 foreach (var sort in allSorts)
                 {
-                    long currentSortTime = comparator.Compare(sort.Value, comparator.Sequence);
+                    float currentSortTime = timeTracker.GetSortingTime(sort.Value, timeTracker.Sequence);
                     Console.WriteLine("{0}: {1} миллисекунд", sort.Key, currentSortTime);
                 }
             }
@@ -30,64 +31,38 @@ namespace lab1.Properties
             }
         }
 
-        public static void SetSequence(Comparator comparator, long[] values)
+        public static void SetSequence(TimeTracker timeTracker, long[] values)
         {
-            comparator.Sequence = new long[values.Length];
-
-            try
-            {
-                for (int i = 0; i < values.Length; i++)
-                {
-                    comparator.Sequence[i] = values[i];
-                }
-                Console.WriteLine("Последовательность установлена");
-            }
-            catch (FormatException)
-            {
-                comparator.Sequence = null;
-                Console.WriteLine("Требуется вводить только числа через пробел");
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("Вы ввели недопустимо малое или недопустимо большое число");
-            }
+            timeTracker.Sequence = values;
+            Console.WriteLine("Последовательность установлена");
         }
 
-        public static void SetRandomSequence(Comparator comparator, long value)
+        public static void SetRandomSequence(TimeTracker timeTracker, long value)
         {
             try
             {
                 Random random = new Random();
-
                 long arrayForSortingLength = value;
 
-                comparator.Sequence = new long[arrayForSortingLength];
+                timeTracker.Sequence = new long[arrayForSortingLength];
                 for (int i = 0; i < arrayForSortingLength; i++)
                 {
-                    comparator.Sequence[i] = random.Next(-100, 100);
+                    timeTracker.Sequence[i] = random.Next(-100, 100);
                 }
 
                 Console.WriteLine("Задана случайная последовательность длинной " + arrayForSortingLength);
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Длина последовательности указана неверно");
             }
             catch (IndexOutOfRangeException)
             {
                 Console.WriteLine("Укажите длину последовательности");
             }
-            catch (OverflowException)
-            {
-                Console.WriteLine("Вы ввели недопустимо малое или недопустимо большое число");
-            }
         }
-
-        public static void PrintHelpInfo(string filePath)
+        
+        public static void PrintHelpInfo()
         {
             try
             {
-                string[] helpInfo = File.ReadAllLines(filePath);
+                string[] helpInfo = File.ReadAllLines(HelpInfoFilePath);
                 foreach (string info in helpInfo)
                 {
                     Console.WriteLine(info);
@@ -99,21 +74,10 @@ namespace lab1.Properties
             }
         }
 
-        public static void SetNumberOfIterations(Comparator comparator, long value)
+        public static void SetNumberOfIterations(TimeTracker timeTracker, long value)
         {
-            try
-            {
-                comparator.Iterations = (int) value;
-                Console.WriteLine("Количество итераций: " + value);
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("Вы ввели недопустимо малое или недопустимо большое число");
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("Введите кол-во итераций");
-            }
+            timeTracker.Iterations = (int) value;
+            Console.WriteLine("Количество итераций: " + value);
         }
 
         public static string GetStringWithoutRedundantSpaces(string sourceString)
@@ -133,7 +97,7 @@ namespace lab1.Properties
         }
 
         public static void CommandsHandler(KeyValuePair<string, long[]> commandAndTheirValues,
-            Comparator comparator, string HelpInfoFilePath)
+            TimeTracker timeTracker)
         {
             switch (commandAndTheirValues.Key)
             {
@@ -143,15 +107,15 @@ namespace lab1.Properties
                     allSorts.Add("Shell sort", Sort.ShellSort);
                     allSorts.Add("Default sort", Sort.DefaultSort);
 
-                    CommandService.DoTest(comparator, allSorts);
+                    DoTest(timeTracker, allSorts);
                     break;
 
                 case Commands.Help:
-                    CommandService.PrintHelpInfo(HelpInfoFilePath);
+                    PrintHelpInfo();
                     break;
 
                 case Commands.Sequence:
-                    CommandService.SetSequence(comparator, commandAndTheirValues.Value);
+                    SetSequence(timeTracker, commandAndTheirValues.Value);
                     break;
 
                 case Commands.Random:
@@ -164,11 +128,18 @@ namespace lab1.Properties
                     {
                         sequnceLength = RandomDefaultSequenceLength;
                     }
-                    CommandService.SetRandomSequence(comparator, sequnceLength);
+                    SetRandomSequence(timeTracker, sequnceLength);
                     break;
 
                 case Commands.Iterations:
-                    CommandService.SetNumberOfIterations(comparator, commandAndTheirValues.Value[0]);
+                    try
+                    {
+                        SetNumberOfIterations(timeTracker, commandAndTheirValues.Value[0]);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Введите кол-во итераций");
+                    }
                     break;
 
                 default:

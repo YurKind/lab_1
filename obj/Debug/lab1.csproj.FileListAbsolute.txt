@@ -34,3 +34,15 @@ C:\projects\lab_1\bin\Debug\normnfkd.nlp
 C:\projects\lab_1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
 C:\projects\lab_1\obj\Debug\lab1.exe
 C:\projects\lab_1\obj\Debug\lab1.pdb
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\lab1.exe
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\lab1.pdb
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\mscorlib.dll
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\ru\mscorlib.resources.dll
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\normidna.nlp
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\normnfc.nlp
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\normnfd.nlp
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\normnfkc.nlp
+C:\Users\andre\RiderProjects\lab_1\bin\Debug\normnfkd.nlp
+C:\Users\andre\RiderProjects\lab_1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
+C:\Users\andre\RiderProjects\lab_1\obj\Debug\lab1.exe
+C:\Users\andre\RiderProjects\lab_1\obj\Debug\lab1.pdb
