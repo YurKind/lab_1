@@ -10,24 +10,23 @@ namespace lab1.Program
     {
         private const long RandomDefaultSequenceLength = 2500;
 
-        private static readonly string HelpInfoFilePath = @"../../Resources/help.txt";
+        private static readonly string HelpInfoFilePath = @"Resources/help.txt";
 
         public static void DoTest(TimeTracker timeTracker, Dictionary<string, SortDelegate> allSorts)
         {
-            try
+            if (timeTracker.Sequence == null)
             {
-                Console.WriteLine("Итераций: {0}, Размер массива: {1}",
-                    timeTracker.Iterations, timeTracker.Sequence.Length);
-
-                foreach (var sort in allSorts)
-                {
-                    float currentSortTime = timeTracker.GetSortingTime(sort.Value, timeTracker.Sequence);
-                    Console.WriteLine("{0}: {1} миллисекунд", sort.Key, currentSortTime);
-                }
+                Console.WriteLine("Введите последовательность");
+                return;
             }
-            catch (NullReferenceException)
+
+            Console.WriteLine("Итераций: {0}, Размер массива: {1}",
+                timeTracker.Iterations, timeTracker.Sequence.Length);
+
+            foreach (var sort in allSorts)
             {
-                Console.WriteLine("Для начала теста требуется задать последовательность");
+                double currentSortTime = timeTracker.GetSortingTime(sort.Value, timeTracker.Sequence);
+                Console.WriteLine("{0}: {1} миллисекунд", sort.Key, currentSortTime);
             }
         }
 
@@ -57,16 +56,12 @@ namespace lab1.Program
                 Console.WriteLine("Укажите длину последовательности");
             }
         }
-        
+
         public static void PrintHelpInfo()
         {
             try
             {
-                string[] helpInfo = File.ReadAllLines(HelpInfoFilePath);
-                foreach (string info in helpInfo)
-                {
-                    Console.WriteLine(info);
-                }
+                Console.WriteLine(File.ReadAllText(HelpInfoFilePath));
             }
             catch (FileNotFoundException ex)
             {
@@ -76,7 +71,7 @@ namespace lab1.Program
 
         public static void SetNumberOfIterations(TimeTracker timeTracker, long value)
         {
-            timeTracker.Iterations = (int) value;
+            timeTracker.Iterations = (int)value;
             Console.WriteLine("Количество итераций: " + value);
         }
 

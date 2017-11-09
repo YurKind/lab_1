@@ -17,20 +17,22 @@ namespace lab1.Program
 
         public long[] Sequence { get; set; }
 
-        public float GetSortingTime(SortDelegate sortDelegate, long[] array)
+        public double GetSortingTime(SortDelegate sortDelegate, long[] array)
         {
-            float result;
+            double result;
             Stopwatch stopwatch = new Stopwatch();
             
             for (int i = 0; i < iterations; i++)
-            {
-                long[] tempArray = array;
+            { 
+                long[] tempArray = new long[array.Length];
+                Array.Copy(array, tempArray, array.Length);
+
                 stopwatch.Start();
                 sortDelegate.Invoke(tempArray);
                 stopwatch.Stop();
             }
-            result = (float) stopwatch.ElapsedMilliseconds / Iterations;
-            return result <= 0.0 ? (float) 0.0001 : result;
+            result = stopwatch.Elapsed.TotalMilliseconds / Iterations;
+            return result;
         }
     }
 

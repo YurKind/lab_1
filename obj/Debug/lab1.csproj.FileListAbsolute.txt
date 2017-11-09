@@ -46,3 +46,9 @@ C:\Users\andre\RiderProjects\lab_1\bin\Debug\normnfkd.nlp
 C:\Users\andre\RiderProjects\lab_1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
 C:\Users\andre\RiderProjects\lab_1\obj\Debug\lab1.exe
 C:\Users\andre\RiderProjects\lab_1\obj\Debug\lab1.pdb
+C:\Users\yurok_e\Documents\code\C#\labs\lab_1\obj\Debug\lab1.exe
+C:\Users\yurok_e\Documents\code\C#\labs\lab_1\obj\Debug\lab1.pdb
+C:\Users\yurok_e\Documents\code\C#\labs\lab_1\bin\Debug\lab1.exe
+C:\Users\yurok_e\Documents\code\C#\labs\lab_1\bin\Debug\lab1.pdb
+C:\Users\yurok_e\Documents\code\C#\labs\lab_1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
+C:\Users\yurok_e\Documents\code\C#\labs\lab_1\bin\Debug\Resources\help.txt
