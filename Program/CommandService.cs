@@ -167,5 +167,16 @@ namespace lab1.Program
                     break;
             }
         }
+
+        public static void SetCharacterLimit(int numberOfChracters)
+        {
+            var bufsize = numberOfChracters;
+            Stream stream = Console.OpenStandardInput(bufsize);
+            TextReader inReader = (stream == Stream.Null) ?
+                        StreamReader.Null :
+                        TextReader.Synchronized(
+                            new StreamReader(stream, Console.InputEncoding, false, bufsize, true));
+            Console.SetIn(inReader);
+        }
     }
 }
