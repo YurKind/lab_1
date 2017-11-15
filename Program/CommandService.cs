@@ -38,23 +38,24 @@ namespace lab1.Program
 
         public static void SetRandomSequence(TimeTracker timeTracker, long value)
         {
-            try
+            if(value < 0)
             {
-                Random random = new Random();
-                long arrayForSortingLength = value;
-
-                timeTracker.Sequence = new long[arrayForSortingLength];
-                for (int i = 0; i < arrayForSortingLength; i++)
-                {
-                    timeTracker.Sequence[i] = random.Next(-100, 100);
-                }
-
-                Console.WriteLine("Задана случайная последовательность длинной " + arrayForSortingLength);
+                Console.WriteLine("Введите положительную длину последовательности");
+                return;
             }
-            catch (IndexOutOfRangeException)
+
+            Random random = new Random();
+            long arrayForSortingLength = value;
+
+            timeTracker.Sequence = new long[arrayForSortingLength];
+            for (int i = 0; i < arrayForSortingLength; i++)
             {
-                Console.WriteLine("Укажите длину последовательности");
+                timeTracker.Sequence[i] = random.Next(-100, 100);
             }
+
+            Console.WriteLine("Задана случайная последовательность длинной " + arrayForSortingLength);
+
+
         }
 
         public static void PrintHelpInfo()
@@ -97,7 +98,7 @@ namespace lab1.Program
             int possablyBadValueIndex = 0;
             try
             {
-                for(int i = 1; i < commandLineElements.Length; i++)
+                for (int i = 1; i < commandLineElements.Length; i++)
                 {
                     possablyBadValueIndex = i;
                     values[i - 1] = long.Parse(commandLineElements[i]);
