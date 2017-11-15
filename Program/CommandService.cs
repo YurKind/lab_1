@@ -71,6 +71,13 @@ namespace lab1.Program
 
         public static void SetNumberOfIterations(TimeTracker timeTracker, long value)
         {
+            if (value < 1)
+            {
+                Console.WriteLine("Введите положительное число итераций");
+
+                return;
+            }
+
             timeTracker.Iterations = (int)value;
             Console.WriteLine("Количество итераций: " + value);
         }
@@ -80,13 +87,31 @@ namespace lab1.Program
             return Regex.Replace(sourceString, @"\s+", " ").Trim();
         }
 
-        public static KeyValuePair<string, long[]> ReturnCommandAndValues(string commandLine)
+        public static KeyValuePair<string, long[]> GetCommandAndValue(string commandLine)
         {
             commandLine = commandLine.ToLower();
             string commandLineWithoutRedundantSpaces = GetStringWithoutRedundantSpaces(commandLine);
             string[] commandLineElements = commandLineWithoutRedundantSpaces.Split(' ');
 
-            long[] values = commandLineElements.Skip(1).Select(long.Parse).ToArray();
+            long[] values = new long[commandLineElements.Length - 1];
+            int possablyBadValueIndex = 0;
+            try
+            {
+                for(int i = 1; i < commandLineElements.Length; i++)
+                {
+                    possablyBadValueIndex = i;
+                    values[i - 1] = long.Parse(commandLineElements[i]);
+                }
+                //values = commandLineElements.Skip(1).Select(long.Parse).ToArray();
+            }
+            catch (OverflowException)
+            {
+                throw new FormatException("Значение: " + commandLineElements[possablyBadValueIndex] + " слишком велико");
+            }
+            catch (FormatException)
+            {
+                throw new FormatException("Значение: " + commandLineElements[possablyBadValueIndex] + " введено некорректно");
+            }
 
             return new KeyValuePair<string, long[]>(commandLineElements[0], values);
         }

@@ -14,36 +14,44 @@ namespace lab1.Program
 
         private static KeyValuePair<string, long[]> commandAndTheirValues;
 
-        public static void Start(string filePath)
-        {
-            string[] fileLines;
-            try
-            {
-                fileLines = File.ReadAllLines(filePath);
-            }
-            catch (FileNotFoundException ex)
-            {
-                Console.Write("Файл {0} не найден", ex.FileName);
-                return;
-            }
+        //public static void Start(string filePath)
+        //{
+        //    string[] fileLines;
+        //    try
+        //    {
+        //        fileLines = File.ReadAllLines(filePath);
+        //    }
+        //    catch (FileNotFoundException ex)
+        //    {
+        //        Console.Write("Файл {0} не найден", ex.FileName);
+        //        return;
+        //    }
 
-            Dictionary<string, long[]> commandsAndTheirValues = fileLines
-                .Take(fileLines.Length)
-                .Select(CommandService.ReturnCommandAndValues)
-                .ToDictionary(pair => pair.Key, pair => pair.Value);
 
-            if (commandsAndTheirValues.Count == 0)
-            {
-                Console.WriteLine("Проверьте корректность заданных в файле");
-            }
-            else
-            {
-                foreach (var pair in commandsAndTheirValues)
-                {
-                    CommandService.CommandsHandler(pair, _timeTracker);
-                }
-            }
-        }
+        //    //Dictionary<string, long[]> commandsAndTheirValues = fileLines
+        //    //    .Take(fileLines.Length)
+        //    //    .Select(CommandService.ReturnCommandAndValues)
+        //    //    .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+        //    IDictionary<string, long[]> commandsAndTheirValues = new IDictionary<string, long[]>();
+        //    foreach(string line in fileLines)
+        //    {
+        //        KeyValuePair<string, long[]> tempValues = CommandService.GetCommandAndValue(line);
+        //        commandsAndTheirValues.Add(tempValues.Key, tempValues.Value);
+        //    }
+
+        //    if (commandsAndTheirValues.Count() == 0)
+        //    {
+        //        Console.WriteLine("Проверьте корректность заданных в файле");
+        //    }
+        //    else
+        //    {
+        //        foreach (var pair in commandsAndTheirValues)
+        //        {
+        //            CommandService.CommandsHandler(pair, _timeTracker);
+        //        }
+        //    }
+        //}
 
         public static void Start()
         {
@@ -52,11 +60,16 @@ namespace lab1.Program
                 try
                 {
                     Console.Write(" > ");
-                    commandAndTheirValues = CommandService.ReturnCommandAndValues(Console.ReadLine());
+                    commandAndTheirValues = CommandService.GetCommandAndValue(Console.ReadLine());
                 }
-                catch (FormatException)
+                catch (FormatException e)
                 {
-                    Console.WriteLine("Введено неверное значение");
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
+                catch (OverflowException e)
+                {
+                    Console.WriteLine(e.Message);
                     continue;
                 }
 

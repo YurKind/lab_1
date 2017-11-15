@@ -2,7 +2,7 @@ iterations 1000
 sequence 228 9 0 420 2354 -222224
 test
 iterations 499
-sequence 3 4 5 6 6t
+sequence 3 4 5 6 6
 iterations 342
 sequence 2342 34 234 23 423 4
 test
@@ -10,7 +10,7 @@ iterations 1000
 sequence 228 9 0 420 2354 -222224
 test
 iterations 499
-sequence 3 4 5 6 6t
+sequence 3 4 5 6 6
 iterations 342
 sequence 2342 34 234 23 423 4
 test
