@@ -107,7 +107,7 @@ namespace lab1.Program
             }
             catch (OverflowException)
             {
-                throw new FormatException("Значение: " + commandLineElements[possablyBadValueIndex] + " слишком велико");
+                throw new OverflowException("Значение: " + commandLineElements[possablyBadValueIndex] + " слишком велико");
             }
             catch (FormatException)
             {
