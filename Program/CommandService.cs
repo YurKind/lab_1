@@ -50,7 +50,7 @@ namespace lab1.Program
             timeTracker.Sequence = new long[arrayForSortingLength];
             for (int i = 0; i < arrayForSortingLength; i++)
             {
-                timeTracker.Sequence[i] = random.Next(-100, 100);
+                timeTracker.Sequence[i] = random.Next(int.MinValue, int.MaxValue);
             }
 
             Console.WriteLine("Задана случайная последовательность длинной " + arrayForSortingLength);
@@ -91,6 +91,7 @@ namespace lab1.Program
         public static KeyValuePair<string, long[]> GetCommandAndValue(string commandLine)
         {
             commandLine = commandLine.ToLower();
+
             string commandLineWithoutRedundantSpaces = GetStringWithoutRedundantSpaces(commandLine);
             string[] commandLineElements = commandLineWithoutRedundantSpaces.Split(' ');
 

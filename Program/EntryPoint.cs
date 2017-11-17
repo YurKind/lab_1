@@ -7,10 +7,11 @@ namespace lab1.Program
 {
     public class EntryPoint
     {
-        private const int CHARACTERLIMIT = 1000000;
+        private const int CHARACTER_LIMIT = 1000000;
+
         public static void Main(string[] args)
         {
-            CommandService.SetCharacterLimit(CHARACTERLIMIT);
+            CommandService.SetCharacterLimit(CHARACTER_LIMIT);
 
             Console.WriteLine("Привет! Я жду команд!");
             try

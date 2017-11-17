@@ -36,7 +36,7 @@ namespace lab1.Program
 
                 if (commandAndTheirValues.Key == Commands.Exit)
                 {
-                    Console.WriteLine("Чао");
+                    Console.WriteLine("Чао бамбина!");
                     isProgramRunning = false;
                 }
                 else

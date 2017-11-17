@@ -58,3 +58,10 @@ D:\code\C#\labs\lab_1\bin\Debug\lab1.pdb
 D:\code\C#\labs\lab_1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
 D:\code\C#\labs\lab_1\obj\Debug\lab1.exe
 D:\code\C#\labs\lab_1\obj\Debug\lab1.pdb
+C:\Users\andre\source\lab_1\bin\Debug\Resources\help.txt
+C:\Users\andre\source\lab_1\bin\Debug\lab1.exe
+C:\Users\andre\source\lab_1\bin\Debug\lab1.pdb
+C:\Users\andre\source\lab_1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
+C:\Users\andre\source\lab_1\obj\Debug\lab1.csproj.CoreCompileInputs.cache
+C:\Users\andre\source\lab_1\obj\Debug\lab1.exe
+C:\Users\andre\source\lab_1\obj\Debug\lab1.pdb
