@@ -7,9 +7,10 @@ namespace lab1.Program
 {
     public class EntryPoint
     {
+        private const int CHARACTERLIMIT = 1000000;
         public static void Main(string[] args)
         {
-            CommandService.SetCharacterLimit(1000000);
+            CommandService.SetCharacterLimit(CHARACTERLIMIT);
 
             Console.WriteLine("Привет! Я жду команд!");
             try
@@ -18,10 +19,6 @@ namespace lab1.Program
                 {
                     Console.WriteLine("Превышено число параметров");
                 }
-                //else if (args.Length == 1)
-                //{
-                //    //SortsComparator.Start(args[0]);
-                //}
                 else
                 {
                     SortsComparator.Start();

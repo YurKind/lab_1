@@ -38,7 +38,7 @@ namespace lab1.Program
 
         public static void SetRandomSequence(TimeTracker timeTracker, long value)
         {
-            if(value < 0)
+            if (value < 0)
             {
                 Console.WriteLine("Введите положительную длину последовательности");
                 return;
